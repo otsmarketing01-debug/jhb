@@ -475,3 +475,30 @@ Stage Summary:
   8. Custom error boundary (error.tsx)
 - Combined with Phase 1: sitemap, canonical tags, Organization schema, NAP fix
 - Score improvement: 47/100 → estimated 65+/100
+---
+Task ID: VERCEL-DEPLOY
+Agent: Main Agent
+Task: Deploy JHB Curtain Cleaning site to Vercel production
+
+Work Log:
+- Installed Vercel CLI v54.20.0
+- Authenticated with Vercel token
+- Created Vercel project "jhb-curtain-cleaning" via API (prj_E0lZ4Z1q9ev1fCgtMJfErqktPRGB)
+- Connected to GitHub repo otsmarketing01-debug/jhb
+- First deployment attempt failed: multi-region requires Pro plan
+- Fixed vercel.json to use single region (iad1) for Hobby plan
+- Triggered production deployment (dpl_4hwcpKBxFGHGEG1CG8R1X2q47m48)
+- Build completed in ~90 seconds
+- Status: READY ✅
+- All 19 routes verified live (200 OK)
+- Security headers verified live (6 headers applied)
+- Custom 404 page returns 404 status correctly
+
+Stage Summary:
+- Production URL: https://jhb-curtain-cleaning.vercel.app
+- Aliases:
+  * jhb-curtain-cleaning.vercel.app
+  * jhb-curtain-cleaning-otsmarketing01-2742s-projects.vercel.app
+  * jhb-curtain-cleaning-git-main-otsmarketing01-2742s-projects.vercel.app
+- Auto-deploy enabled: every git push triggers new deployment
+- Next step: Add custom domain jhbcurtaincleaning.co.za in Vercel dashboard
