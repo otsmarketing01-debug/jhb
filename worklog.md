@@ -521,3 +521,30 @@ Stage Summary:
 - Vercel side: DONE ✅ (both domains verified, redirect configured)
 - Pending: User to add 2 DNS records at domains.co.za
 - After DNS propagates (5-30 min), Vercel auto-provisions SSL
+---
+Task ID: DOMAIN-LIVE
+Agent: Main Agent
+Task: Verify custom domain is live after DNS changes
+
+Work Log:
+- User updated DNS at domains.co.za:
+  * A record: jhbcurtaincleaning.co.za → 76.76.21.21 (Vercel)
+  * CNAME: www.jhbcurtaincleaning.co.za → cname.vercel-dns.com
+- Email records preserved (MX, DKIM, SPF, DMARC all intact)
+- DNS propagation: IMMEDIATE (within minutes)
+- Vercel auto-provisioned SSL certificate (Let's Encrypt)
+- Verified live:
+  * https://jhbcurtaincleaning.co.za → HTTP 200 ✅
+  * https://www.jhbcurtaincleaning.co.za → HTTP 200 (redirects to apex) ✅
+  * SSL: Let's Encrypt, valid until Oct 1 2026, auto-renewed ✅
+  * All 6 security headers applied ✅
+  * MX record intact: mx1.tld-mx.com (email working) ✅
+  * Sitemap: HTTP 200 ✅
+  * Service landing page: HTTP 200 ✅
+
+Stage Summary:
+- SITE IS FULLY LIVE AT https://jhbcurtaincleaning.co.za 🎉
+- Email unaffected by DNS changes
+- SSL auto-renewing
+- All 19 routes serving correctly
+- Vercel auto-deploy enabled for future updates
