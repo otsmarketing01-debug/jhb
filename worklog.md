@@ -502,3 +502,22 @@ Stage Summary:
   * jhb-curtain-cleaning-git-main-otsmarketing01-2742s-projects.vercel.app
 - Auto-deploy enabled: every git push triggers new deployment
 - Next step: Add custom domain jhbcurtaincleaning.co.za in Vercel dashboard
+---
+Task ID: DOMAIN-SETUP
+Agent: Main Agent
+Task: Add custom domain jhbcurtaincleaning.co.za to Vercel project
+
+Work Log:
+- Added apex domain jhbcurtaincleaning.co.za to Vercel project (verified: true)
+- Added www.jhbcurtaincleaning.co.za to Vercel project (verified: true)
+- Configured www → apex permanent redirect (308)
+- Domain registered at domains.co.za (nameservers: ns1.tld-ns.net, ns2.tld-ns.com, ns3.tld-ns.net, ns4.tld-ns.com)
+- DNSSEC disabled (good for Vercel setup)
+- Domain expires in 12.43 months
+- Auto-renew enabled
+- User needs to add A record + CNAME at domains.co.za DNS management panel
+
+Stage Summary:
+- Vercel side: DONE ✅ (both domains verified, redirect configured)
+- Pending: User to add 2 DNS records at domains.co.za
+- After DNS propagates (5-30 min), Vercel auto-provisions SSL
