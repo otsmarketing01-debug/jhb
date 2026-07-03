@@ -2,6 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "next build",
-  "regions": ["sin1", "fra1", "iad1"],
-  "crons": []
+  "regions": ["iad1"]
 }
