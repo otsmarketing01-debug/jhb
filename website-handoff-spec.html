@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Website Build Specification — JHB Curtain Cleaning</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+@page {
+    size: 720px 1020px;
+    margin: 0 0 16px 0;
+    @bottom-center {
+        content: counter(page);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        color: #94a3b8;
+        letter-spacing: 2px;
+    }
+}
+@page :first {
+    margin: 0;
+    @bottom-center {
+        content: none;
+    }
+}
+@page :last {
+    margin: 0;
+    @bottom-center {
+        content: none;
+    }
+}
+:root {
+    --emerald: #064e3b;
+    --emerald-deep: #022c1f;
+    --emerald-light: #047857;
+    --bronze: #a87d43;
+    --bronze-light: #d4a574;
+    --bronze-deep: #7c5a2a;
+    --bg: #ffffff;
+    --ivory: #fefce8;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --code-bg: #f1f5f9;
+    --code-text: #334155;
+    --table-head: #064e3b;
+    --table-alt: #f8fafc;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 720px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+@media screen {
+    html {
+        height: auto;
+        display: flex;
+        justify-content: center;
+        background: #222;
+    }
+    body {
+        margin: 20px auto;
+        box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+    }
+}
+
+/* ========== COVER PAGE ========== */
+.cover {
+    width: 720px;
+    height: 1020px;
+    box-sizing: border-box;
+    break-after: page;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(155deg, #022c1f 0%, #064e3b 50%, #022c1f 100%);
+    color: #ffffff;
+    padding: 70px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cover::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,125,67,0.35) 0%, rgba(168,125,67,0) 70%);
+    pointer-events: none;
+}
+.cover::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,125,67,0.25) 0%, rgba(168,125,67,0) 70%);
+    pointer-events: none;
+}
+.cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+}
+.cover-monogram {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--bronze);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--bronze-light);
+    letter-spacing: -1px;
+}
+.cover-version {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--bronze-light);
+    letter-spacing: 2px;
+    text-align: right;
+    line-height: 1.6;
+}
+.cover-version span { display: block; color: rgba(255,255,255,0.55); font-size: 10px; margin-top: 2px; }
+
+.cover-center {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+}
+.cover-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--bronze);
+    color: var(--bronze-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.05;
+    color: #ffffff;
+    letter-spacing: -2px;
+    margin: 0 0 18px 0;
+}
+.cover-title .accent { color: var(--bronze-light); font-style: italic; display: block; line-height: 1.05; }
+.cover-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.5px;
+    margin-bottom: 38px;
+    max-width: 480px;
+    line-height: 1.4;
+}
+.cover-divider {
+    width: 80px;
+    height: 6px;
+    background: var(--bronze);
+    margin-bottom: 40px;
+    border-radius: 2px;
+}
+.cover-project {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--bronze-light);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+.cover-project-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.cover-bottom {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(168,125,67,0.4);
+    padding-top: 44px;
+}
+.cover-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1.5px;
+    line-height: 1.9;
+}
+.cover-meta strong { color: var(--bronze-light); font-weight: 500; }
+.cover-meta .urls {
+    margin-top: 10px;
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+.cover-seal {
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    color: var(--bronze-light);
+    line-height: 1.3;
+}
+.cover-seal .big {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+.cover-seal .small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    padding: 55px 60px 40px 60px;
+}
+
+/* Chapter header */
+.chapter-header {
+    break-after: avoid;
+    break-inside: avoid;
+    margin-top: 28px;
+    margin-bottom: 18px;
+}
+.chapter-header:first-child { margin-top: 0; }
+.chapter-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--bronze);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--emerald);
+    line-height: 1.15;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+}
+.chapter-divider {
+    width: 50px;
+    height: 8px;
+    background: var(--bronze);
+    margin-bottom: 16px;
+    border-radius: 2px;
+}
+
+/* Sub heading */
+.sub-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--emerald);
+    margin: 18px 0 8px 0;
+    break-after: avoid;
+    letter-spacing: -0.2px;
+}
+.sub-heading .num {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: var(--emerald);
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-weight: 700;
+}
+
+/* Body text */
+.body-text {
+    margin: 0 0 11px 0;
+    color: var(--text);
+    line-height: 1.65;
+    text-align: justify;
+}
+.body-text strong { color: var(--emerald); font-weight: 600; }
+.body-text em { color: var(--bronze-deep); font-style: italic; }
+
+/* Inline code */
+.inline-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+}
+code {
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+}
+
+/* Code block */
+.code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--bronze);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin: 10px 0 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--code-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    break-inside: avoid;
+    overflow-wrap: break-word;
+}
+.code-block .comment { color: #64748b; font-style: italic; }
+.code-block .keyword { color: var(--emerald); font-weight: 600; }
+.code-block .string { color: var(--bronze-deep); }
+
+/* Tables */
+.table-wrap {
+    break-inside: avoid;
+    margin: 10px 0 16px 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 11.5px;
+    line-height: 1.45;
+}
+thead th {
+    background: var(--emerald);
+    color: #ffffff;
+    text-align: left;
+    padding: 9px 11px;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--bronze);
+}
+tbody td {
+    padding: 8px 11px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+tbody tr:nth-child(even) { background: var(--table-alt); }
+tbody tr:last-child td { border-bottom: none; }
+tbody td code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1px 5px;
+    border-radius: 3px;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+}
+tbody td strong { color: var(--emerald); }
+
+/* Cards */
+.card {
+    break-inside: avoid;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--bronze);
+    border-radius: 5px;
+    padding: 12px 14px;
+    margin: 0 0 12px 0;
+    background: #ffffff;
+}
+.card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--emerald);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.1px;
+}
+.card-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0;
+}
+.card-text strong { color: var(--emerald); }
+
+/* Card grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0 14px 0;
+}
+.card-grid .card { margin-bottom: 0; }
+
+/* Lists */
+ul.spec-list, ol.spec-list {
+    margin: 6px 0 12px 0;
+    padding-left: 18px;
+}
+ul.spec-list li, ol.spec-list li {
+    margin-bottom: 5px;
+    line-height: 1.55;
+    font-size: 12.5px;
+}
+ul.spec-list li strong, ol.spec-list li strong { color: var(--emerald); }
+ul.spec-list li code, ol.spec-list li code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+/* Checklist */
+.checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0 12px 0;
+}
+.checklist li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+    font-size: 12.5px;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--border);
+    break-inside: avoid;
+}
+.checklist li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--bronze);
+    border-radius: 3px;
+    background: #fff;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+/* Component tree diagram */
+.tree {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--emerald);
+    border-radius: 5px;
+    padding: 14px 16px;
+    margin: 10px 0 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    line-height: 1.55;
+    color: var(--code-text);
+    white-space: pre-wrap;
+    break-inside: avoid;
+    overflow-wrap: break-word;
+}
+.tree .root { color: var(--emerald); font-weight: 700; }
+.tree .branch { color: var(--bronze-deep); }
+.tree .leaf { color: var(--text); }
+
+/* Tag pill */
+.pill {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(6,78,59,0.08);
+    color: var(--emerald);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    border-radius: 10px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+.pill.bronze {
+    background: rgba(168,125,67,0.12);
+    color: var(--bronze-deep);
+}
+
+/* Stat row */
+.stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 12px 0 14px 0;
+    break-inside: avoid;
+}
+.stat-card {
+    background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+    color: #fff;
+    padding: 12px 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid var(--emerald-deep);
+}
+.stat-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--bronze-light);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.stat-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+}
+
+/* TOC */
+.toc-list {
+    margin: 8px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+.toc-list li {
+    padding: 7px 0;
+    border-bottom: 1px dotted var(--border);
+    font-size: 12.5px;
+    break-inside: avoid;
+    line-height: 1.5;
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-list .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--bronze);
+    font-weight: 700;
+    margin-right: 12px;
+    font-size: 11px;
+}
+.toc-list .toc-title { color: var(--text); }
+.toc-list .toc-page {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    font-size: 11px;
+    float: right;
+}
+
+/* Highlight callout */
+.callout {
+    background: linear-gradient(135deg, rgba(6,78,59,0.04) 0%, rgba(168,125,67,0.06) 100%);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--emerald);
+    border-radius: 5px;
+    padding: 12px 14px;
+    margin: 10px 0 14px 0;
+    break-inside: avoid;
+}
+.callout-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--emerald);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 0 0 6px 0;
+}
+.callout-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0;
+}
+.callout-text strong { color: var(--emerald); }
+
+/* ========== ENDING PAGE ========== */
+.ending {
+    width: 720px;
+    height: 1020px;
+    box-sizing: border-box;
+    break-before: page;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(155deg, #022c1f 0%, #064e3b 60%, #022c1f 100%);
+    color: #ffffff;
+    padding: 80px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ending::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,125,67,0.18) 0%, rgba(168,125,67,0) 60%);
+    pointer-events: none;
+}
+.ending-top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ending-monogram {
+    width: 56px; height: 56px;
+    border: 2px solid var(--bronze);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 900; color: var(--bronze-light);
+}
+.ending-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--bronze-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.ending-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+.ending-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    letter-spacing: -1px;
+}
+.ending-big > div { line-height: 1.15; }
+.ending-big .accent { color: var(--bronze-light); font-style: italic; }
+.ending-divider {
+    width: 70px;
+    height: 6px;
+    background: var(--bronze);
+    margin: 22px auto;
+    border-radius: 2px;
+}
+.ending-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+.ending-bottom {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(168,125,67,0.4);
+    padding-top: 22px;
+    text-align: center;
+}
+.ending-project {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bronze-light);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+}
+.ending-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.8;
+}
+.ending-meta span { color: var(--bronze-light); }
+</style>
+</head>
+<body>
+
+<!-- ============= COVER PAGE ============= -->
+<div class="cover">
+    <div class="cover-top">
+        <div class="cover-monogram">JC</div>
+        <div class="cover-version">
+            v2.0
+            <span>COMMIT 2808d8b</span>
+        </div>
+    </div>
+
+    <div class="cover-center">
+        <div class="cover-tag">Handoff Documentation</div>
+        <div class="cover-title">Website<br>Build<br><span class="accent">Specification</span></div>
+        <div class="cover-subtitle">Complete handoff documentation for the next AI agent — every route, component, data structure, and deployment detail.</div>
+        <div class="cover-divider"></div>
+        <div class="cover-project-label">Project</div>
+        <div class="cover-project">JHB Curtain Cleaning</div>
+    </div>
+
+    <div class="cover-bottom">
+        <div class="cover-meta">
+            <strong>ISSUED</strong> · JULY 2026<br>
+            <strong>REPO</strong> · otsmarketing01-debug/jhb<br>
+            <strong>PLATFORM</strong> · VERCEL · IAD1
+            <div class="urls">curtaincleaning.space-z.ai<br>jhbcurtaincleaning.co.za</div>
+        </div>
+        <div class="cover-seal">
+            <div class="big">15+</div>
+            <div class="small">Years On-Site</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============= MAIN CONTENT ============= -->
+<div class="main-content">
+
+<!-- TABLE OF CONTENTS -->
+<div class="chapter-header">
+    <div class="chapter-tag">Contents</div>
+    <div class="chapter-title">Table of Contents</div>
+    <div class="chapter-divider"></div>
+</div>
+<ul class="toc-list">
+    <li><span class="toc-num">01</span><span class="toc-title">Project Overview</span><span class="toc-page">03</span></li>
+    <li><span class="toc-num">02</span><span class="toc-title">Technology Stack</span><span class="toc-page">04</span></li>
+    <li><span class="toc-num">03</span><span class="toc-title">Live URLs &amp; Deployment</span><span class="toc-page">05</span></li>
+    <li><span class="toc-num">04</span><span class="toc-title">Route Map</span><span class="toc-page">06</span></li>
+    <li><span class="toc-num">05</span><span class="toc-title">Component Architecture</span><span class="toc-page">07</span></li>
+    <li><span class="toc-num">06</span><span class="toc-title">File Manifest</span><span class="toc-page">09</span></li>
+    <li><span class="toc-num">07</span><span class="toc-title">Data Architecture</span><span class="toc-page">11</span></li>
+    <li><span class="toc-num">08</span><span class="toc-title">Design System</span><span class="toc-page">13</span></li>
+    <li><span class="toc-num">09</span><span class="toc-title">SEO &amp; Structured Data</span><span class="toc-page">14</span></li>
+    <li><span class="toc-num">10</span><span class="toc-title">API Endpoints</span><span class="toc-page">16</span></li>
+    <li><span class="toc-num">11</span><span class="toc-title">AI Chatbot Integration</span><span class="toc-page">17</span></li>
+    <li><span class="toc-num">12</span><span class="toc-title">NAP Standardization</span><span class="toc-page">18</span></li>
+    <li><span class="toc-num">13</span><span class="toc-title">Navigation Architecture</span><span class="toc-page">19</span></li>
+    <li><span class="toc-num">14</span><span class="toc-title">Contact Form System</span><span class="toc-page">20</span></li>
+    <li><span class="toc-num">15</span><span class="toc-title">Landing Page Sidebar System</span><span class="toc-page">21</span></li>
+    <li><span class="toc-num">16</span><span class="toc-title">Cross-Linking System</span><span class="toc-page">22</span></li>
+    <li><span class="toc-num">17</span><span class="toc-title">Compliance &amp; Security</span><span class="toc-page">23</span></li>
+    <li><span class="toc-num">18</span><span class="toc-title">Deployment &amp; Infrastructure</span><span class="toc-page">24</span></li>
+    <li><span class="toc-num">19</span><span class="toc-title">Build &amp; Development Commands</span><span class="toc-page">25</span></li>
+    <li><span class="toc-num">20</span><span class="toc-title">Brand Assets</span><span class="toc-page">26</span></li>
+    <li><span class="toc-num">21</span><span class="toc-title">Known Issues &amp; Future Work</span><span class="toc-page">26</span></li>
+    <li><span class="toc-num">22</span><span class="toc-title">Handoff Checklist for New AI Agent</span><span class="toc-page">27</span></li>
+</ul>
+
+<!-- ============= SECTION 1: PROJECT OVERVIEW ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 01</div>
+    <div class="chapter-title">Project Overview</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="stat-row">
+    <div class="stat-card"><div class="num">19</div><div class="label">Routes</div></div>
+    <div class="stat-card"><div class="num">92</div><div class="label">TS/TSX Files</div></div>
+    <div class="stat-card"><div class="num">13.7k</div><div class="label">Lines of Code</div></div>
+    <div class="stat-card"><div class="num">48</div><div class="label">UI Components</div></div>
+</div>
+
+<p class="body-text">JHB Curtain Cleaning is Johannesburg's premier on-site curtain cleaning service, founded by <strong>Stephen Dunlop</strong> — an industry veteran with 15+ years of hands-on experience who has personally served more than 5,000 clients across Gauteng. The business operates from <em>10 2nd Ave, Florida, Roodepoort, 1710</em> and offers a six-service portfolio covering curtain &amp; blind cleaning, mattress sanitisation, upholstery &amp; carpet cleaning, master guarding, fire proofing, and rug care. Service is delivered on-site at the customer's premises, eliminating the disruption of removing curtains for off-site treatment.</p>
+
+<p class="body-text">The website is a production-ready <strong>Next.js 16</strong> application built on the App Router, comprising <strong>19 routes</strong>: 1 homepage, 6 service landing pages, 6 sector landing pages, 6 area landing pages, and 3 API endpoints (<code class="inline-code">/api/chat</code>, <code class="inline-code">/api/contact</code>, <code class="inline-code">/api/newsletter</code>). A further sitemap.xml and robots.txt are auto-generated. All 18 landing pages are statically generated at build time via <code class="inline-code">generateStaticParams</code>, producing an ultra-fast, SEO-optimized site that scores well on Core Web Vitals.</p>
+
+<p class="body-text">The site is <strong>live at two URLs</strong>: <em>https://curtaincleaning.space-z.ai/</em> (the Z.ai workspace preview/staging environment) and <em>https://jhbcurtaincleaning.co.za</em> (the production custom domain). The <em>www</em> subdomain issues a 308 redirect to the apex domain. A Vercel subdomain (<em>jhb-curtain-cleaning.vercel.app</em>) remains available as a backup URL. Both primary URLs point to the same Vercel deployment, ensuring parity between staging and production builds.</p>
+
+<p class="body-text">Deployment runs on <strong>Vercel (Hobby plan, region iad1 — Washington DC)</strong>, with auto-deploys triggered on every push to the <code class="inline-code">main</code> branch of the GitHub repository <code class="inline-code">otsmarketing01-debug/jhb</code>. Build time is approximately 90 seconds end-to-end. The current production commit is <strong>2808d8b</strong>. The codebase contains <strong>92 TypeScript/TSX files totalling roughly 13,721 lines of code</strong>, including the central content data file (<code class="inline-code">src/lib/site-data.ts</code>) which alone is 1,175+ lines.</p>
+
+<p class="body-text">The technology stack is deliberately conservative and best-of-breed: <strong>Next.js 16 + TypeScript 5 + Tailwind CSS 4 + shadcn/ui (48 Radix-based components) + Framer Motion 12 + Prisma 6 + z-ai-web-dev-sdk</strong>. The build pipeline is managed by <strong>Bun</strong> as the package manager and script runner. State management is split between Zustand (client) and TanStack Query (server). The AI chatbot widget on every page is powered by the in-house <code class="inline-code">z-ai-web-dev-sdk</code>, hitting a serverless route that streams responses with thinking disabled for sub-second latency.</p>
+
+<!-- ============= SECTION 2: TECHNOLOGY STACK ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 02</div>
+    <div class="chapter-title">Technology Stack</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The dependency tree contains <strong>68 packages total</strong>. The table below lists every meaningful dependency — both runtime and the major devDependencies — with their resolved versions and purpose. Packages marked "(Available)" are installed but not yet wired into any active feature; they are pre-positioned for upcoming phases (blog, analytics, case studies).</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Category</span></th><th><span>Technology</span></th><th><span>Version</span></th><th><span>Purpose</span></th></tr>
+</thead>
+<tbody>
+<tr><td><span>Framework</span></td><td><strong>Next.js</strong> (App Router)</td><td><span>16.1.1</span></td><td><span>React framework with SSG, RSC, server actions</span></td></tr>
+<tr><td><span>Language</span></td><td><span>TypeScript</span></td><td><span>5.x</span></td><td><span>End-to-end type safety</span></td></tr>
+<tr><td><span>Runtime</span></td><td><span>Bun</span></td><td><span>Latest</span></td><td><span>Package manager &amp; script runner</span></td></tr>
+<tr><td><span>Styling</span></td><td><span>Tailwind CSS</span></td><td><span>4.x</span></td><td><span>Utility-first CSS, JIT compilation</span></td></tr>
+<tr><td><span>UI Library</span></td><td><span>shadcn/ui (New York)</span></td><td><span>—</span></td><td><span>48 Radix-based components, copy-in pattern</span></td></tr>
+<tr><td><span>Animations</span></td><td><span>Framer Motion</span></td><td><span>12.40.0</span></td><td><span>Scroll reveals, hover states, multi-step form</span></td></tr>
+<tr><td><span>Forms</span></td><td><span>React Hook Form + Zod</span></td><td><span>7.60.0 / 4.0.2</span></td><td><span>Schema-validated form handling</span></td></tr>
+<tr><td><span>ORM</span></td><td><span>Prisma</span></td><td><span>6.11.1</span></td><td><span>SQLite database client (leads, subscribers, partners)</span></td></tr>
+<tr><td><span>Client State</span></td><td><span>Zustand</span></td><td><span>5.0.6</span></td><td><span>Lightweight client-side state</span></td></tr>
+<tr><td><span>Server State</span></td><td><span>TanStack Query</span></td><td><span>5.82.0</span></td><td><span>Data fetching &amp; caching</span></td></tr>
+<tr><td><span>AI SDK</span></td><td><span>z-ai-web-dev-sdk</span></td><td><span>0.0.18</span></td><td><span>In-house LLM chatbot backend</span></td></tr>
+<tr><td><span>Auth</span></td><td><span>NextAuth.js</span></td><td><span>4.24.11</span></td><td><span>(Available, not yet used)</span></td></tr>
+<tr><td><span>Icons</span></td><td><span>Lucide React</span></td><td><span>1.21.0</span></td><td><span>SVG icon system (consistent stroke)</span></td></tr>
+<tr><td><span>Charts</span></td><td><span>Recharts</span></td><td><span>2.15.4</span></td><td><span>(Available for future analytics dashboards)</span></td></tr>
+<tr><td><span>Image Opt</span></td><td><span>Sharp</span></td><td><span>0.34.3</span></td><td><span>Next.js Image pipeline (AVIF/WebP)</span></td></tr>
+<tr><td><span>Date</span></td><td><span>date-fns</span></td><td><span>4.1.0</span></td><td><span>Date formatting &amp; manipulation</span></td></tr>
+<tr><td><span>PDF Gen</span></td><td><span>docx + pagedjs</span></td><td><span>9.7.1 / 0.4.3</span></td><td><span>Programmatic document generation</span></td></tr>
+<tr><td><span>Markdown</span></td><td><span>react-markdown</span></td><td><span>10.1.0</span></td><td><span>Content rendering (future blog)</span></td></tr>
+<tr><td><span>Carousel</span></td><td><span>embla-carousel-react</span></td><td><span>8.6.0</span></td><td><span>(Available for before/after gallery)</span></td></tr>
+<tr><td><span>Drag &amp; Drop</span></td><td><span>@dnd-kit/core</span></td><td><span>6.3.1</span></td><td><span>(Available)</span></td></tr>
+<tr><td><span>Tables</span></td><td><span>@tanstack/react-table</span></td><td><span>8.21.3</span></td><td><span>(Available for admin leads table)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+    <div class="callout-title">Build Configuration Notes</div>
+    <p class="callout-text"><strong>typescript.ignoreBuildErrors</strong> is currently set to <code>true</code> in <code>next.config.ts</code> — this masks underlying type errors and should be flipped to <code>false</code> as a Phase 1 cleanup task. <strong>reactStrictMode</strong> is also <code>false</code>. <strong>output: 'standalone'</strong> is enabled for optimal Vercel deployment. The build outputs AVIF + WebP images via Sharp.</p>
+</div>
+
+<!-- ============= SECTION 3: LIVE URLS & DEPLOYMENT ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 03</div>
+    <div class="chapter-title">Live URLs &amp; Deployment</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>URL</span></th><th><span>Type</span></th><th><span>Purpose</span></th></tr>
+</thead>
+<tbody>
+<tr><td><code>https://curtaincleaning.space-z.ai/</code></td><td><span>Preview / Staging</span></td><td><span>Z.ai workspace preview environment</span></td></tr>
+<tr><td><code>https://jhbcurtaincleaning.co.za</code></td><td><span>Production (custom domain)</span></td><td><span>Primary live site</span></td></tr>
+<tr><td><code>https://www.jhbcurtaincleaning.co.za</code></td><td><span>Redirect (308)</span></td><td><span>WWW → apex canonical</span></td></tr>
+<tr><td><code>https://jhb-curtain-cleaning.vercel.app</code></td><td><span>Vercel subdomain</span></td><td><span>Backup URL (always reachable)</span></td></tr>
+<tr><td><code>https://jhb-curtain-cleaning-otsmarketing01-2742s-projects.vercel.app</code></td><td><span>Project URL</span></td><td><span>Vercel dashboard project URL</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="body-text"><strong>Vercel auto-deploys on every git push</strong> to the <code class="inline-code">main</code> branch of <code class="inline-code">github.com/otsmarketing01-debug/jhb</code>. A typical production build (Next.js SSG with 18 static landing pages + sitemap) takes approximately <strong>90 seconds end-to-end</strong>, after which Vercel swaps the new deployment to the active alias with zero downtime. Preview deployments are generated automatically for every pull request, allowing branch-level QA before merge.</p>
+
+<p class="body-text"><strong>SSL/TLS</strong> is auto-provisioned by Vercel via Let's Encrypt and auto-renews before expiry — no manual cert management is required. The custom domain <em>jhbcurtaincleaning.co.za</em> is registered at <em>domains.co.za</em> and points to Vercel via an A record (<code class="inline-code">76.76.21.21</code>) and a CNAME for <em>www</em> (<code class="inline-code">cname.vercel-dns.com</code>). Security headers including HSTS with preload, <code class="inline-code">X-Frame-Options: DENY</code>, <code class="inline-code">X-Content-Type-Options: nosniff</code>, referrer policy, and permissions policy are all configured in <code class="inline-code">next.config.ts</code> and propagated through Vercel's edge layer.</p>
+
+<p class="body-text">The <strong>Vercel project ID</strong> is <code class="inline-code">prj_E0lZ4Z1q9ev1fCgtMJfErqktPRGB</code>, running on the <strong>Hobby (Free) plan</strong> in region <strong>iad1 (Washington DC)</strong>. Hobby tier permits a single region, which is acceptable given that all pages are statically generated — the edge cache serves content globally with low latency regardless of origin region.</p>
+
+<!-- ============= SECTION 4: ROUTE MAP ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 04</div>
+    <div class="chapter-title">Route Map</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Route Pattern</span></th><th><span>Pages</span></th><th><span>Type</span></th><th><span>Data Source</span></th><th><span>SSG</span></th></tr>
+</thead>
+<tbody>
+<tr><td><code>/</code></td><td><span>1</span></td><td><span>Homepage</span></td><td><span>SITE_CONFIG, SERVICES, SECTORS, AREAS, FOUNDER, FAQS</span></td><td><span>Client</span></td></tr>
+<tr><td><code>/services/[slug]</code></td><td><span>6</span></td><td><span>Service Landing</span></td><td><span>SERVICE_LANDING_DATA</span></td><td><span>SSG (generateStaticParams)</span></td></tr>
+<tr><td><code>/sectors/[slug]</code></td><td><span>6</span></td><td><span>Sector Landing</span></td><td><span>SECTOR_LANDING_DATA</span></td><td><span>SSG (generateStaticParams)</span></td></tr>
+<tr><td><code>/areas/[slug]</code></td><td><span>6</span></td><td><span>Area Landing</span></td><td><span>AREA_LANDING_DATA</span></td><td><span>SSG (generateStaticParams)</span></td></tr>
+<tr><td><code>/api/chat</code></td><td><span>—</span></td><td><span>API Route</span></td><td><span>z-ai-web-dev-sdk LLM</span></td><td><span>Serverless</span></td></tr>
+<tr><td><code>/api/contact</code></td><td><span>—</span></td><td><span>API Route</span></td><td><span>Prisma (Lead model)</span></td><td><span>Serverless</span></td></tr>
+<tr><td><code>/api/newsletter</code></td><td><span>—</span></td><td><span>API Route</span></td><td><span>Prisma (Subscriber model)</span></td><td><span>Serverless</span></td></tr>
+<tr><td><code>/sitemap.xml</code></td><td><span>1</span></td><td><span>Sitemap</span></td><td><span>Auto-generated (19 URLs)</span></td><td><span>SSG</span></td></tr>
+<tr><td><code>/robots.txt</code></td><td><span>1</span></td><td><span>Crawl config</span></td><td><span>Static</span></td><td><span>Static</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Service Slugs (6)</div>
+<p class="body-text">
+<span class="pill">curtain-blind-cleaning</span>
+<span class="pill">mattress-sanitisation</span>
+<span class="pill">upholstery-carpet-cleaning</span>
+<span class="pill">master-guarding</span>
+<span class="pill">fire-proofing</span>
+<span class="pill">rug-care</span>
+</p>
+
+<div class="sub-heading"><span class="num">2</span>Sector Slugs (6)</div>
+<p class="body-text">
+<span class="pill bronze">hotels</span>
+<span class="pill bronze">corporate</span>
+<span class="pill bronze">healthcare</span>
+<span class="pill bronze">education</span>
+<span class="pill bronze">theatres</span>
+<span class="pill bronze">residential</span>
+</p>
+
+<div class="sub-heading"><span class="num">3</span>Area Slugs (6)</div>
+<p class="body-text">
+<span class="pill">jhb-north</span>
+<span class="pill">jhb-east</span>
+<span class="pill">jhb-south</span>
+<span class="pill">jhb-west</span>
+<span class="pill">jhb-central</span>
+<span class="pill">pretoria-midrand</span>
+</p>
+
+<div class="callout">
+    <div class="callout-title">Static Generation Pattern</div>
+    <p class="callout-text">Each dynamic route (services, sectors, areas) implements both <code>generateStaticParams</code> (returning all 6 slugs at build time) and <code>generateMetadata</code> (producing per-page title, description, OpenGraph, canonical). The page component reads from the matching data constant (e.g., <code>SERVICE_LANDING_DATA[slug]</code>) and passes the content object to a client component (e.g., <code>ServiceLandingClient</code>) which renders the hero, two-column layout, sidebar, and JSON-LD scripts.</p>
+</div>
+
+<!-- ============= SECTION 5: COMPONENT ARCHITECTURE ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 05</div>
+    <div class="chapter-title">Component Architecture</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The component tree follows a strict three-layer separation: <strong>layout → page → section</strong>. The root layout injects fonts, JSON-LD schemas, and the global Toaster; pages compose section components; sections are pure presentational components that receive data via props from the central <code class="inline-code">src/lib/site-data.ts</code> constants. No section fetches its own data — all content flows down from a single source of truth, making bulk edits trivial.</p>
+
+<div class="sub-heading"><span class="num">1</span>Root Layout Tree</div>
+<div class="tree"><span class="root">RootLayout</span> (src/app/layout.tsx)
+├── JSON-LD Schemas (2 scripts in &lt;head&gt;)
+│   ├── <span class="branch">LocalBusiness</span> Schema
+│   └── <span class="branch">Organization</span> Schema
+├── Inter + Playfair Display fonts (next/font)
+└── &lt;body&gt;
+    └── &lt;div className="min-h-screen flex flex-col"&gt;
+        ├── {children} → Page Content
+        └── <span class="leaf">&lt;Toaster /&gt;</span> (shadcn/ui sonner)</div>
+
+<div class="sub-heading"><span class="num">2</span>Homepage Composition</div>
+<div class="tree"><span class="root">Home</span> (src/app/page.tsx)
+├── <span class="branch">&lt;Header /&gt;</span> (sticky, glass effect, dropdowns)
+├── &lt;main&gt;
+│   ├── <span class="leaf">&lt;HeroSection /&gt;</span>            H1, CTAs, trust strip
+│   ├── <span class="leaf">&lt;ServicesSection /&gt;</span>        6 service cards, 3×2 grid
+│   ├── <span class="leaf">&lt;ProcessSection /&gt;</span>         4-step timeline + guarantees
+│   ├── <span class="leaf">&lt;SectorsSection /&gt;</span>         6 sector cards
+│   ├── <span class="leaf">&lt;AreasSection /&gt;</span>           6 area cards with suburbs
+│   ├── <span class="leaf">&lt;AboutSection /&gt;</span>           2-col: founder + bio + stats
+│   ├── <span class="leaf">&lt;FAQSection /&gt;</span>             9 accordion items
+│   ├── <span class="leaf">&lt;NewsletterStrip /&gt;</span>        email signup
+│   ├── <span class="leaf">&lt;ContactSection /&gt;</span>         4-step form + sidebar
+│   └── <span class="leaf">&lt;CTASection /&gt;</span>             bronze CTA band
+├── <span class="branch">&lt;Footer /&gt;</span>                   4-col: Brand|Sectors|Services|Contact
+├── <span class="leaf">&lt;WhatsAppButton /&gt;</span>             floating
+├── <span class="leaf">&lt;CookieConsent /&gt;</span>              POPIA
+└── <span class="leaf">&lt;AIChatbot /&gt;</span>                  floating widget</div>
+
+<div class="sub-heading"><span class="num">3</span>Landing Page Template (shared by services/sectors/areas)</div>
+<div class="tree"><span class="root">[Type]LandingClient</span> (3 near-identical implementations)
+├── <span class="branch">&lt;Header /&gt;</span>
+├── <span class="leaf">&lt;Breadcrumbs /&gt;</span>             Home › Type › Current
+├── JSON-LD Scripts            Service + FAQPage + BreadcrumbList
+├── <span class="leaf">&lt;LandingHero /&gt;</span>              tag, heading, subtext, trust strip
+├── <span class="leaf">&lt;GuaranteeStrip /&gt;</span>          icon + label badges
+├── &lt;TwoColumnLayout&gt;
+│   ├── Left (2/3): Main content
+│   │   ├── Heading + Paragraphs
+│   │   ├── What's Included (2-col icon cards)
+│   │   ├── Process Steps (numbered timeline)
+│   │   ├── Common Questions (accordion)
+│   │   └── Table Data (optional)
+│   └── Right (1/3): Sticky <span class="leaf">&lt;LandingSidebar /&gt;</span>
+│       ├── Assessment CTA Card
+│       ├── Guarantees Card
+│       ├── Get In Touch Card
+│       ├── Pricing Guide Card (4 tiers)
+│       ├── Related Services Card
+│       └── Areas We Serve Card
+├── <span class="leaf">&lt;RelatedLinks /&gt;</span>            cross-link grid
+├── <span class="leaf">&lt;LandingNewsletter /&gt;</span>
+├── <span class="leaf">&lt;LandingCTA /&gt;</span>
+├── <span class="branch">&lt;Footer /&gt;</span>
+├── <span class="leaf">&lt;WhatsAppButton /&gt;</span>
+├── <span class="leaf">&lt;CookieConsent /&gt;</span>
+└── <span class="leaf">&lt;AIChatbot /&gt;</span></div>
+
+<p class="body-text">The architecture deliberately duplicates the landing page client across three near-identical files (<code class="inline-code">service-landing-client.tsx</code>, <code class="inline-code">sector-landing-client.tsx</code>, <code class="inline-code">area-landing-client.tsx</code>) rather than abstracting them into a single generic component. While this introduces some repetition, it preserves the flexibility to diverge — sector pages, for example, render a <em>keyStats</em> block and <em>decisionMaker</em> section that services and areas do not. Each landing client receives a fully-typed content object from the parent <code class="inline-code">page.tsx</code> server component, which has looked up the slug in the corresponding data constant.</p>
+
+<p class="body-text">All floating widgets (<strong>WhatsAppButton</strong>, <strong>CookieConsent</strong>, <strong>AIChatbot</strong>) are mounted globally — the first two via the layout, the chatbot via the layout as well — so they appear on every route without per-page wiring. The Header uses an IntersectionObserver to detect the active section and applies a glass-morphism background once the user scrolls past 20px. The 4-step ContactSection is the most complex component at 844 lines, orchestrating React Hook Form state across four Framer Motion AnimatePresence stages.</p>
+
+<!-- ============= SECTION 6: FILE MANIFEST ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 06</div>
+    <div class="chapter-title">File Manifest</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The following table enumerates <strong>every custom source file</strong> in the project, excluding the 48 standard shadcn/ui components under <code class="inline-code">src/components/ui/</code>. Files are grouped by responsibility: app routes, lib utilities, custom components, landing sub-components, and hooks.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>File</span></th><th><span>Purpose</span></th><th><span>Key Exports</span></th></tr>
+</thead>
+<tbody>
+<tr><td><code>src/app/layout.tsx</code></td><td><span>Root layout, fonts, JSON-LD schemas</span></td><td><span>RootLayout, metadata</span></td></tr>
+<tr><td><code>src/app/page.tsx</code></td><td><span>Homepage composition</span></td><td><span>Home (default)</span></td></tr>
+<tr><td><code>src/app/sitemap.ts</code></td><td><span>XML sitemap (19 URLs)</span></td><td><span>sitemap (default)</span></td></tr>
+<tr><td><code>src/app/error.tsx</code></td><td><span>Error boundary</span></td><td><span>Error (default)</span></td></tr>
+<tr><td><code>src/app/not-found.tsx</code></td><td><span>Custom 404 page</span></td><td><span>NotFound (default)</span></td></tr>
+<tr><td><code>src/app/api/route.ts</code></td><td><span>API health check</span></td><td><span>GET</span></td></tr>
+<tr><td><code>src/app/api/chat/route.ts</code></td><td><span>AI chatbot endpoint (92 lines)</span></td><td><span>POST</span></td></tr>
+<tr><td><code>src/app/api/contact/route.ts</code></td><td><span>Contact form handler</span></td><td><span>POST</span></td></tr>
+<tr><td><code>src/app/api/newsletter/route.ts</code></td><td><span>Newsletter signup</span></td><td><span>POST</span></td></tr>
+<tr><td><code>src/app/services/[slug]/page.tsx</code></td><td><span>Service SSG page</span></td><td><span>generateStaticParams, generateMetadata</span></td></tr>
+<tr><td><code>src/app/services/[slug]/service-landing-client.tsx</code></td><td><span>Service landing client</span></td><td><span>ServiceLandingClient</span></td></tr>
+<tr><td><code>src/app/sectors/[slug]/page.tsx</code></td><td><span>Sector SSG page</span></td><td><span>generateStaticParams, generateMetadata</span></td></tr>
+<tr><td><code>src/app/sectors/[slug]/sector-landing-client.tsx</code></td><td><span>Sector landing client</span></td><td><span>SectorLandingClient</span></td></tr>
+<tr><td><code>src/app/areas/[slug]/page.tsx</code></td><td><span>Area SSG page</span></td><td><span>generateStaticParams, generateMetadata</span></td></tr>
+<tr><td><code>src/app/areas/[slug]/area-landing-client.tsx</code></td><td><span>Area landing client</span></td><td><span>AreaLandingClient</span></td></tr>
+<tr><td><code>src/lib/site-data.ts</code></td><td><span>Central data constants (1,175+ lines)</span></td><td><span>SITE_CONFIG, SERVICES, SECTORS, AREAS, FOUNDER, FAQS, SERVICE_LANDING_DATA, SECTOR_LANDING_DATA, AREA_LANDING_DATA, TRUST_BADGES, GUARANTEES, PROCESS_STEPS, NAV_LINKS</span></td></tr>
+<tr><td><code>src/lib/data.ts</code></td><td><span>Legacy data constants</span></td><td><span>SECTORS, SERVICES, AREAS, FAQS, TRUST_BADGES, WHY_US, PROCESS_STEPS, GUARANTEES, COMPARISON_DATA</span></td></tr>
+<tr><td><code>src/lib/cross-links.ts</code></td><td><span>Cross-linking utility</span></td><td><span>getRelatedLinks, CrossLink</span></td></tr>
+<tr><td><code>src/lib/db.ts</code></td><td><span>Prisma client singleton</span></td><td><span>db</span></td></tr>
+<tr><td><code>src/lib/utils.ts</code></td><td><span>Utility functions</span></td><td><span>cn</span></td></tr>
+<tr><td><code>src/components/header.tsx</code></td><td><span>Sticky header with dropdowns</span></td><td><span>Header (default)</span></td></tr>
+<tr><td><code>src/components/hero-section.tsx</code></td><td><span>Homepage hero</span></td><td><span>HeroSection (default)</span></td></tr>
+<tr><td><code>src/components/services-section.tsx</code></td><td><span>Services grid</span></td><td><span>ServicesSection (default)</span></td></tr>
+<tr><td><code>src/components/process-section.tsx</code></td><td><span>Process timeline</span></td><td><span>ProcessSection (default)</span></td></tr>
+<tr><td><code>src/components/sectors-section.tsx</code></td><td><span>Sectors grid</span></td><td><span>SectorsSection (default)</span></td></tr>
+<tr><td><code>src/components/areas-section.tsx</code></td><td><span>Areas grid</span></td><td><span>AreasSection (default)</span></td></tr>
+<tr><td><code>src/components/about-section.tsx</code></td><td><span>Founder story</span></td><td><span>AboutSection (default)</span></td></tr>
+<tr><td><code>src/components/faq-section.tsx</code></td><td><span>FAQ accordion</span></td><td><span>FAQSection (default)</span></td></tr>
+<tr><td><code>src/components/contact-section.tsx</code></td><td><span>4-step form (844 lines)</span></td><td><span>ContactSection (default)</span></td></tr>
+<tr><td><code>src/components/newsletter-strip.tsx</code></td><td><span>Newsletter signup</span></td><td><span>NewsletterStrip (default)</span></td></tr>
+<tr><td><code>src/components/cta-section.tsx</code></td><td><span>CTA band</span></td><td><span>CTASection (default)</span></td></tr>
+<tr><td><code>src/components/footer.tsx</code></td><td><span>4-column footer</span></td><td><span>Footer (default)</span></td></tr>
+<tr><td><code>src/components/ai-chatbot.tsx</code></td><td><span>AI chat widget (254 lines)</span></td><td><span>AIChatbot (default)</span></td></tr>
+<tr><td><code>src/components/whatsapp-button.tsx</code></td><td><span>WhatsApp float</span></td><td><span>WhatsAppButton (default)</span></td></tr>
+<tr><td><code>src/components/cookie-consent.tsx</code></td><td><span>POPIA consent</span></td><td><span>CookieConsent (default)</span></td></tr>
+<tr><td><code>src/components/breadcrumbs.tsx</code></td><td><span>Breadcrumb nav</span></td><td><span>Breadcrumbs (default), Crumb</span></td></tr>
+<tr><td><code>src/components/related-links.tsx</code></td><td><span>Cross-link grid</span></td><td><span>RelatedLinks (default), RelatedLink</span></td></tr>
+<tr><td><code>src/components/social-icons.tsx</code></td><td><span>Social SVG icons</span></td><td><span>FacebookIcon, InstagramIcon, etc.</span></td></tr>
+<tr><td><code>src/components/landing/landing-hero.tsx</code></td><td><span>Landing hero</span></td><td><span>LandingHero (default)</span></td></tr>
+<tr><td><code>src/components/landing/landing-sidebar.tsx</code></td><td><span>Landing sidebar (6 cards)</span></td><td><span>LandingSidebar (default)</span></td></tr>
+<tr><td><code>src/components/landing/landing-cta.tsx</code></td><td><span>Landing CTA</span></td><td><span>LandingCTA (default)</span></td></tr>
+<tr><td><code>src/components/landing/landing-newsletter.tsx</code></td><td><span>Landing newsletter</span></td><td><span>LandingNewsletter (default)</span></td></tr>
+<tr><td><code>src/hooks/use-mobile.ts</code></td><td><span>Mobile detection</span></td><td><span>useIsMobile</span></td></tr>
+<tr><td><code>src/hooks/use-toast.ts</code></td><td><span>Toast hook</span></td><td><span>useToast</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============= SECTION 7: DATA ARCHITECTURE ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 07</div>
+    <div class="chapter-title">Data Architecture</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The data layer is intentionally flat and centralized. <strong>All site content lives in TypeScript constants</strong> — there is no CMS, no database-driven content, and no headless API for marketing copy. The single source of truth is <code class="inline-code">src/lib/site-data.ts</code> (1,175+ lines), which exports every text string, service definition, sector definition, area definition, FAQ, founder bio, trust badge, guarantee, and the three full landing-page data objects. Lead and subscriber records — the only mutable data — are stored in SQLite via Prisma.</p>
+
+<div class="sub-heading"><span class="num">1</span>SITE_CONFIG (lines 1–32 of site-data.ts)</div>
+<div class="code-block"><span class="comment">// The single source of truth for NAP-critical business data</span>
+<span class="keyword">export const</span> SITE_CONFIG = {
+  name: <span class="string">"JHB CURTAIN CLEANING"</span>,
+  shortName: <span class="string">"JHB Curtain Cleaning"</span>,
+  tagline: <span class="string">"Professional On-Site Curtain Cleaning"</span>,
+  siteUrl: <span class="string">"https://www.jhbcurtaincleaning.co.za"</span>,
+  domain: <span class="string">"jhbcurtaincleaning.co.za"</span>,
+  phone: <span class="string">"+27 75 011 9200"</span>,
+  phoneRaw: <span class="string">"+27750119200"</span>,
+  phoneLink: <span class="string">"+27750119200"</span>,
+  officePhone: <span class="string">"071 622 6723"</span>,
+  officePhoneLink: <span class="string">"+27716226723"</span>,
+  email: <span class="string">"info@jhbcurtaincleaning.co.za"</span>,
+  address: <span class="string">"10 2nd Ave, Florida, Roodepoort, 1710, South Africa"</span>,
+  whatsapp: <span class="string">"+27 75 011 9200"</span>,
+  whatsappLink: <span class="string">"https://wa.me/27750119200"</span>,
+  googleRating: <span class="string">4.9</span>,
+  reviewCount: <span class="string">500</span>,
+  clientsServed: <span class="string">"5,000+"</span>,
+  yearsExperience: <span class="string">"15+"</span>,
+  contactPerson: <span class="string">"Stephen Dunlop"</span>,
+  contactPersonNote: <span class="string">"Available via Call &amp; WhatsApp"</span>,
+  hours: { weekday: <span class="string">"Mon–Fri 07:00–18:00"</span>, saturday: <span class="string">"Sat 08:00–14:00"</span> },
+  social: { facebook, instagram, youtube, linkedin, tiktok, pinterest, twitter }
+};</div>
+
+<div class="sub-heading"><span class="num">2</span>Content Data Arrays</div>
+<div class="card-grid">
+<div class="card">
+<div class="card-title">SERVICES (6)</div>
+<p class="card-text">id, title, shortDesc, icon, isPrimary, features[], priceRange</p>
+</div>
+<div class="card">
+<div class="card-title">SECTORS (6)</div>
+<p class="card-text">id, title, shortDesc, icon, features[]</p>
+</div>
+<div class="card">
+<div class="card-title">AREAS (6)</div>
+<p class="card-text">id, title, focus, suburbs[], description</p>
+</div>
+<div class="card">
+<div class="card-title">SERVICE_LANDING_DATA (6)</div>
+<p class="card-text">meta, hero, guarantees, mainContent, sidebar, ctaBand, newsletter</p>
+</div>
+<div class="card">
+<div class="card-title">SECTOR_LANDING_DATA (6)</div>
+<p class="card-text">meta, hero, keyStats, decisionMaker, faqs, ctaBand, newsletter</p>
+</div>
+<div class="card">
+<div class="card-title">AREA_LANDING_DATA (6)</div>
+<p class="card-text">meta, hero, suburbs, mainContent, sidebar, ctaBand, newsletter</p>
+</div>
+<div class="card">
+<div class="card-title">FAQS (9)</div>
+<p class="card-text">question / answer pairs served on homepage FAQSection</p>
+</div>
+<div class="card">
+<div class="card-title">FOUNDER</div>
+<p class="card-text">name, title, credentials, bio, stats (4 items)</p>
+</div>
+<div class="card">
+<div class="card-title">TRUST_BADGES (5)</div>
+<p class="card-text">Icon + label pairs rendered in hero trust strip</p>
+</div>
+<div class="card">
+<div class="card-title">GUARANTEES (5)</div>
+<p class="card-text">Shield-icon guarantee cards in ProcessSection &amp; sidebar</p>
+</div>
+<div class="card">
+<div class="card-title">PROCESS_STEPS (4)</div>
+<p class="card-text">Numbered timeline steps shown on homepage &amp; landing pages</p>
+</div>
+<div class="card">
+<div class="card-title">NAV_LINKS</div>
+<p class="card-text">Top-nav structure with dropdown children for Services/Sectors/Areas</p>
+</div>
+</div>
+
+<div class="sub-heading"><span class="num">3</span>Prisma Schema (prisma/schema.prisma)</div>
+<div class="code-block"><span class="keyword">model Partner</span> {
+  id              String   @id @default(cuid())
+  uniqueId        String   @unique
+  businessName    String
+  contactPerson   String
+  email           String
+  phone           String
+  commissionRate  Float
+  leads           Lead[]
+}
+
+<span class="keyword">model Lead</span> {
+  id              String   @id @default(cuid())
+  fullName        String
+  email           String
+  phone           String
+  suburb          String
+  serviceType     String
+  message         String?
+  status          LeadStatus @default(CAPTURED)
+  invoiceValue    Float?
+  commissionDue   Float?
+  popiaConsent    Boolean
+  consentTime     DateTime
+  partnerId       String?
+  partner         Partner? @relation(fields: [partnerId], references: [id])
+}
+
+<span class="keyword">model Subscriber</span> {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  doubleOptIn     Boolean  @default(false)
+  verificationId  String?
+  lifecycleTag    String?
+}
+
+<span class="keyword">enum LeadStatus</span> {
+  CAPTURED
+  COMMISSION_PENDING
+  SETTLED
+  ARCHIVED
+}
+
+<span class="comment">// Database: SQLite at /home/z/my-project/db/custom.db</span></div>
+
+<!-- ============= SECTION 8: DESIGN SYSTEM ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 08</div>
+    <div class="chapter-title">Design System</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Color Palette (Tailwind CSS variables)</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Token</span></th><th><span>Value</span></th><th><span>Usage</span></th></tr>
+</thead>
+<tbody>
+<tr><td><code>brand-emerald</code></td><td><code>#064e3b</code></td><td><span>Primary brand, headers, CTAs</span></td></tr>
+<tr><td><code>brand-bronze</code></td><td><code>#a87d43</code></td><td><span>Accent, highlights, CTAs</span></td></tr>
+<tr><td><code>brand-emerald-highlight</code></td><td><code>#059669</code></td><td><span>Hover states</span></td></tr>
+<tr><td><code>brand-bronze-highlight</code></td><td><code>#d4a574</code></td><td><span>Light accent / decorative</span></td></tr>
+<tr><td><code>brand-surface-ivory</code></td><td><code>#fefce8</code></td><td><span>About section background</span></td></tr>
+<tr><td><code>primary</code></td><td><code>#064e3b</code></td><td><span>Default primary (alias)</span></td></tr>
+<tr><td><code>background</code></td><td><code>#ffffff</code></td><td><span>Page background</span></td></tr>
+<tr><td><code>foreground</code></td><td><code>#1e293b</code></td><td><span>Body text</span></td></tr>
+<tr><td><code>muted-foreground</code></td><td><code>#64748b</code></td><td><span>Secondary text</span></td></tr>
+<tr><td><code>border</code></td><td><code>#e2e8f0</code></td><td><span>Borders &amp; dividers</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading"><span class="num">2</span>Typography</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Role</span></th><th><span>Font</span></th><th><span>Weight</span></th><th><span>Size</span></th></tr>
+</thead>
+<tbody>
+<tr><td><span>Body</span></td><td><span>Inter (next/font)</span></td><td><span>400</span></td><td><span>16px (base)</span></td></tr>
+<tr><td><span>Heading</span></td><td><span>Playfair Display (next/font)</span></td><td><span>700</span></td><td><span>2xl–5xl</span></td></tr>
+<tr><td><span>Navigation</span></td><td><span>Inter</span></td><td><span>500</span></td><td><span>14px</span></td></tr>
+<tr><td><span>Label</span></td><td><span>Inter</span></td><td><span>600</span></td><td><span>12px uppercase</span></td></tr>
+<tr><td><span>Code</span></td><td><span>monospace</span></td><td><span>400</span></td><td><span>13px</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading"><span class="num">3</span>Responsive Breakpoints</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Breakpoint</span></th><th><span>Width</span></th><th><span>Grid Columns</span></th></tr>
+</thead>
+<tbody>
+<tr><td><span>Mobile (default)</span></td><td><span>&lt;640px</span></td><td><span>1 column</span></td></tr>
+<tr><td><code>sm</code></td><td><span>640px+</span></td><td><span>1–2 columns</span></td></tr>
+<tr><td><code>md</code></td><td><span>768px+</span></td><td><span>2–3 columns</span></td></tr>
+<tr><td><code>lg</code></td><td><span>1024px+</span></td><td><span>3–4 columns (dropdown nav appears)</span></td></tr>
+<tr><td><code>xl</code></td><td><span>1280px+</span></td><td><span>4 columns</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+    <div class="callout-title">Visual Hierarchy Rule</div>
+    <p class="callout-text">Emerald is the dominant color (≥60% of color mass: backgrounds of headers, footers, CTA bands). Bronze is the accent (≤25%: dividers, icon strokes, hover highlights, key emphasis). Ivory and white balance the layout (≥15%). This 60/25/15 ratio is enforced across every page for visual consistency.</p>
+</div>
+
+<!-- ============= SECTION 9: SEO & STRUCTURED DATA ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 09</div>
+    <div class="chapter-title">SEO &amp; Structured Data</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The site is engineered for SEO from the ground up, combining <strong>five JSON-LD schema types</strong>, canonical tags, an auto-generated sitemap, robots.txt, OpenGraph and Twitter Card metadata, and a strict NAP discipline (see Section 12). All structured data is rendered server-side at build time, producing HTML that search engines can parse without executing JavaScript.</p>
+
+<div class="card">
+<div class="card-title">1. LocalBusiness Schema — layout.tsx (site-wide)</div>
+<p class="card-text">
+<strong>@type:</strong> LocalBusiness · <strong>name:</strong> JHB CURTAIN CLEANING · url, email, telephone, address (full NAP) · <strong>geo:</strong> -26.1752726, 27.9233293 · <strong>openingHoursSpecification:</strong> Mon–Fri 07:00–18:00, Sat 08:00–14:00 · <strong>priceRange:</strong> R800–R5500 · <strong>hasOfferCatalog:</strong> 6 services · <strong>aggregateRating:</strong> 4.9 / 500 reviews
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">2. Organization Schema — layout.tsx (site-wide)</div>
+<p class="card-text">
+<strong>@type:</strong> Organization · name, url, logo · <strong>sameAs:</strong> 7 social media URLs (Facebook, Instagram, YouTube, LinkedIn, TikTok, Pinterest, Twitter) · <strong>founder:</strong> Stephen Dunlop (Person) · <strong>foundingDate:</strong> 2009 · <strong>contactPoint:</strong> +27 75 011 9200
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">3. Service Schema — per service landing page</div>
+<p class="card-text">
+<strong>@type:</strong> Service · <strong>provider:</strong> LocalBusiness reference (uses @id) · <strong>areaServed:</strong> Johannesburg · <strong>serviceType:</strong> derived from slug
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">4. FAQPage Schema — per landing page with concerns/faqs</div>
+<p class="card-text">
+<strong>@type:</strong> FAQPage · <strong>mainEntity:</strong> array of Question/Answer pairs sourced from the landing page content's <code>concerns</code> or <code>faqs</code> field
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">5. BreadcrumbList Schema — per landing page</div>
+<p class="card-text">
+<strong>@type:</strong> BreadcrumbList · <strong>itemListElement:</strong> Home › Type › Current Page (position 1, 2, 3 with @id URLs)
+</p>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Additional SEO Implementation</div>
+<ul class="spec-list">
+<li><strong>XML sitemap</strong> at <code>/sitemap.xml</code> — auto-generated with all 19 URLs, last-modified dates, and priority weights</li>
+<li><strong>Canonical tags</strong> on all pages via Next.js <code>alternates.canonical</code> metadata field</li>
+<li><strong>robots.txt</strong> at <code>/robots.txt</code> with explicit sitemap reference and crawl directives</li>
+<li><strong>Open Graph</strong> + <strong>Twitter Card</strong> tags on every route (og:title, og:description, og:image, twitter:card)</li>
+<li><strong>metadataBase</strong> set to <code>https://www.jhbcurtaincleaning.co.za</code> for relative URL resolution</li>
+<li><strong>HTML lang</strong> attribute set to <code>en-ZA</code> in layout.tsx</li>
+<li><strong>Semantic HTML</strong> throughout: <code>main</code>, <code>header</code>, <code>nav</code>, <code>section</code>, <code>article</code>, <code>footer</code></li>
+</ul>
+
+<!-- ============= SECTION 10: API ENDPOINTS ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 10</div>
+    <div class="chapter-title">API Endpoints</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="card">
+<div class="card-title">POST /api/chat — AI Chatbot</div>
+<p class="card-text">
+<strong>File:</strong> <code>src/app/api/chat/route.ts</code> (92 lines)<br>
+<strong>Request:</strong> <code>{ message: string, history: { role: string, content: string }[] }</code><br>
+<strong>Response:</strong> <code>{ message: string }</code><br>
+<strong>SDK:</strong> z-ai-web-dev-sdk <code>chat.completions.create()</code><br>
+<strong>System prompt:</strong> 38-line prompt embedding company data, services, pricing, hours, areas, sectors<br>
+<strong>Error handling:</strong> 400 for missing message, 500 for AI errors<br>
+<strong>Latency optimization:</strong> <code>thinking: { type: "disabled" }</code> for sub-second responses
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">POST /api/contact — Contact Form</div>
+<p class="card-text">
+<strong>File:</strong> <code>src/app/api/contact/route.ts</code><br>
+<strong>Request:</strong> <code>{ sector, area, name, email, phone, propertyType, windowCount, notes, popiaConsent }</code><br>
+<strong>Response:</strong> <code>{ success: boolean, message: string }</code><br>
+<strong>Validation:</strong> Basic field presence check (Zod schema recommended for Phase 3)<br>
+<strong>Storage:</strong> Prisma <code>Lead</code> model → SQLite at <code>/home/z/my-project/db/custom.db</code><br>
+<strong>Compliance:</strong> POPIA consent flag required (literal <code>true</code>) — request rejected if missing
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">POST /api/newsletter — Newsletter Signup</div>
+<p class="card-text">
+<strong>File:</strong> <code>src/app/api/newsletter/route.ts</code><br>
+<strong>Request:</strong> <code>{ email: string }</code><br>
+<strong>Response:</strong> <code>{ success: boolean, message: string }</code><br>
+<strong>Storage:</strong> Prisma <code>Subscriber</code> model<br>
+<strong>Double opt-in:</strong> Generates <code>verificationId</code> (UUID) on first signup; subscriber record marked <code>doubleOptIn: false</code> until verification link is clicked
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">GET /api — Health Check</div>
+<p class="card-text">
+<strong>Response:</strong> <code>{ status: "ok", timestamp: string }</code><br>
+<strong>Purpose:</strong> Vercel uptime monitoring, deployment smoke tests
+</p>
+</div>
+
+<!-- ============= SECTION 11: AI CHATBOT INTEGRATION ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 11</div>
+    <div class="chapter-title">AI Chatbot Integration</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The AI chatbot is the primary lead-capture mechanism for off-hours traffic. Implemented in <code class="inline-code">src/components/ai-chatbot.tsx</code> (254 lines), it appears as a floating bronze button at the bottom-right of every page, positioned just above the WhatsApp button. When clicked, it expands into a chat panel with a header, message thread, quick-action suggestions, and an input field. All conversations are routed through the serverless <code class="inline-code">/api/chat</code> endpoint which calls the in-house <code class="inline-code">z-ai-web-dev-sdk</code>.</p>
+
+<div class="card">
+<div class="card-title">System Prompt Coverage (38 lines)</div>
+<p class="card-text">The system prompt embeds: <strong>business name</strong>, <strong>location</strong> (Roodepoort, Johannesburg), <strong>phone</strong> (+27 75 011 9200), <strong>email</strong>, <strong>hours</strong> (Mon–Fri 07:00–18:00, Sat 08:00–14:00), <strong>founder</strong> (Stephen Dunlop), <strong>all 6 services</strong> with price ranges, <strong>all 6 sectors</strong> with sector-specific advice, <strong>all 6 areas</strong> with coverage notes, the <strong>4-step process</strong>, the <strong>5 guarantees</strong>, and key differentiators (on-site cleaning, 15+ years, 5,000+ clients, 4.9★ rating).</p>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Feature Inventory</div>
+<ul class="spec-list">
+<li><strong>Message history</strong> — Conversation context (role + content) sent with each request to enable multi-turn dialogue</li>
+<li><strong>Loading states</strong> — Animated typing indicator while awaiting LLM response</li>
+<li><strong>Error fallback</strong> — On API failure, displays phone number and WhatsApp link so user can still convert</li>
+<li><strong>Quick actions</strong> — Suggested question chips for common queries (pricing, areas, services, hours)</li>
+<li><strong>Latency optimization</strong> — <code>thinking: { type: "disabled" }</code> passed to the SDK to skip reasoning tokens</li>
+<li><strong>Server-only SDK</strong> — z-ai-web-dev-sdk is imported in the API route, never bundled into client code</li>
+</ul>
+
+<!-- ============= SECTION 12: NAP STANDARDIZATION ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 12</div>
+    <div class="chapter-title">NAP Standardization</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">Name-Address-Phone (NAP) consistency is the single most important local-SEO ranking factor. The site enforces a strict NAP standard documented in the internal NAP Technical Document v1.0. All NAP data is centralized in <code class="inline-code">SITE_CONFIG</code> (see Section 7) and every reference across the codebase — header, footer, contact form, JSON-LD schemas, AI chatbot system prompt — imports from this single source. There is no hard-coded NAP string anywhere else in the codebase.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Field</span></th><th><span>Standard Value</span></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Business Name</strong></td><td><span>JHB CURTAIN CLEANING (uppercase, no "On The Spot")</span></td></tr>
+<tr><td><strong>Address</strong></td><td><span>10 2nd Ave, Florida, Roodepoort, 1710, South Africa</span></td></tr>
+<tr><td><strong>Phone</strong></td><td><span>+27 75 011 9200 (E.164 format with country code)</span></td></tr>
+<tr><td><strong>Email</strong></td><td><span>info@jhbcurtaincleaning.co.za</span></td></tr>
+<tr><td><strong>Website</strong></td><td><span>https://www.jhbcurtaincleaning.co.za</span></td></tr>
+<tr><td><strong>Contact Person</strong></td><td><span>Stephen Dunlop (kept SEPARATE from NAP per SEO rule)</span></td></tr>
+<tr><td><strong>Geo Coordinates</strong></td><td><span>-26.1752726, 27.9233293</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+    <div class="callout-title">Schema ↔ Frontend Parity Rule</div>
+    <p class="callout-text">The JSON-LD <code>LocalBusiness</code> schema in <code>layout.tsx</code> must be <strong>byte-identical</strong> to the visible frontend text for name, address, phone, and email. This is verified manually after any NAP edit. Any divergence triggers a Google Business Profile suspension risk and must be corrected before deployment.</p>
+</div>
+
+<!-- ============= SECTION 13: NAVIGATION ARCHITECTURE ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 13</div>
+    <div class="chapter-title">Navigation Architecture</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The header (<code class="inline-code">src/components/header.tsx</code>) is sticky at the top of every page with a glass-morphism backdrop that activates after 20px of scroll. It uses shadcn/ui's <code class="inline-code">NavigationMenu</code> for desktop and a slide-in <code class="inline-code">Sheet</code> for mobile, switching at the <code class="inline-code">lg</code> breakpoint (1024px).</p>
+
+<div class="card">
+<div class="card-title">Desktop Navigation (lg+)</div>
+<p class="card-text">
+Three dropdown panels rendered as 2-column grids:<br>
+• <strong>Services dropdown</strong> — 6 items, each with icon + title + 1-line description<br>
+• <strong>Sectors dropdown</strong> — 6 items, 2-column grid<br>
+• <strong>Areas dropdown</strong> — 6 items, 2-column grid<br>
+Plus simple links: <strong>About</strong>, <strong>FAQ</strong>, <strong>Contact</strong> (smooth scroll to <code>#section</code>)<br>
+Top bar also shows phone number + <strong>Book Free Assessment</strong> CTA button (bronze)
+</p>
+</div>
+
+<div class="card">
+<div class="card-title">Mobile Navigation (&lt;lg)</div>
+<p class="card-text">
+Right-side slide-in <code>Sheet</code> triggered by hamburger icon:<br>
+• Collapsible sections for Services, Sectors, Areas (accordion)<br>
+• Direct links: About, FAQ, Contact<br>
+• Footer CTA buttons: <strong>Book Free Assessment</strong> + <strong>WhatsApp</strong><br>
+• Full-height layout with scroll, emerald background, bronze accents
+</p>
+</div>
+
+<ul class="spec-list">
+<li><strong>Active section highlighting</strong> via IntersectionObserver — current section's nav link receives an emerald underline</li>
+<li><strong>Glass morphism effect</strong> — <code>backdrop-filter: blur(12px)</code> + semi-transparent background applied once <code>window.scrollY &gt; 20</code></li>
+<li><strong>Smooth scroll</strong> — <code>scroll-behavior: smooth</code> + 80px header offset via <code>scroll-margin-top</code> on section targets</li>
+<li><strong>Phone number + Book Free Assessment CTA</strong> in top bar (desktop only — mobile shows in Sheet)</li>
+</ul>
+
+<!-- ============= SECTION 14: CONTACT FORM SYSTEM ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 14</div>
+    <div class="chapter-title">Contact Form System</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The contact form (<code class="inline-code">src/components/contact-section.tsx</code>, 844 lines) is the most complex component in the codebase. It implements a <strong>4-step wizard</strong> with React Hook Form for state management, Zod for schema validation, and Framer Motion's <code class="inline-code">AnimatePresence</code> for slide transitions between steps. Each step is gated — the user cannot advance until the current step passes its Zod schema.</p>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-title">Step 1 — Select Sector</div>
+<p class="card-text">6 radio options with icons (Hotels, Corporate, Healthcare, Education, Theatres, Residential). Required.</p>
+</div>
+<div class="card">
+<div class="card-title">Step 2 — Select Area</div>
+<p class="card-text">Dropdown of 6 areas (JHB North, East, South, West, Central, Pretoria/Midrand). Required.</p>
+</div>
+<div class="card">
+<div class="card-title">Step 3 — Your Details</div>
+<p class="card-text">Name, email, phone, property type (dropdown), window count (number), notes (textarea). All but notes required.</p>
+</div>
+<div class="card">
+<div class="card-title">Step 4 — Confirmation</div>
+<p class="card-text">Review all entered details before submit. POPIA consent checkbox (required, must be literal <code>true</code>). Submit button.</p>
+</div>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Supporting Features</div>
+<ul class="spec-list">
+<li><strong>POPIA consent checkbox</strong> — required, literal <code>true</code>; the API rejects requests without it</li>
+<li><strong>React Hook Form + Zod</strong> — schema-driven validation; errors display inline beneath each field</li>
+<li><strong>Multi-step slide animation</strong> — Framer Motion <code>AnimatePresence</code> with horizontal slide + fade</li>
+<li><strong>Left sidebar</strong> — contact info (phone, email, address), social links, hours of operation</li>
+<li><strong>Toast notifications</strong> — success and error feedback via shadcn/ui <code>Sonner</code> toaster</li>
+<li><strong>API submission</strong> — <code>POST /api/contact</code>; on success, form resets to step 1 with thank-you state</li>
+</ul>
+
+<!-- ============= SECTION 15: LANDING PAGE SIDEBAR SYSTEM ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 15</div>
+    <div class="chapter-title">Landing Page Sidebar System</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">The <code class="inline-code">LandingSidebar</code> component (<code class="inline-code">src/components/landing/landing-sidebar.tsx</code>) is the conversion engine of every landing page. It renders <strong>6 stacked cards</strong> in a sticky right-rail (1/3 width on desktop, full-width stacked on mobile). The sidebar receives all content via props from the parent landing client, which itself reads from the centralized landing data constant.</p>
+
+<div class="card">
+<div class="card-title">1. Assessment CTA Card</div>
+<p class="card-text">Gradient emerald header, checklist of what's included (3–4 items), prominent <strong>Book Free Assessment</strong> button. The primary conversion target on every landing page.</p>
+</div>
+
+<div class="card">
+<div class="card-title">2. Guarantees Card</div>
+<p class="card-text">Shield icons + guarantee labels (5 items, sourced from <code>GUARANTEES</code> constant). Builds trust before the user reaches the contact form.</p>
+</div>
+
+<div class="card">
+<div class="card-title">3. Get In Touch Card</div>
+<p class="card-text">Phone (click-to-call), email (mailto link), and stated response time (&lt;2 business hours). Pulled from <code>SITE_CONFIG</code>.</p>
+</div>
+
+<div class="card">
+<div class="card-title">4. Pricing Guide Card</div>
+<p class="card-text">4 tiers: Small / Medium / Large / Commercial. Each with a price range and brief description. Sets price expectations before form submission.</p>
+</div>
+
+<div class="card">
+<div class="card-title">5. Related Services Card</div>
+<p class="card-text">Cross-links to other relevant services (2–3 items, excluding current page). Generated by <code>getRelatedLinks()</code> in <code>src/lib/cross-links.ts</code>.</p>
+</div>
+
+<div class="card">
+<div class="card-title">6. Areas We Serve Card</div>
+<p class="card-text">6 area links (one per area). Always shows all 6 areas regardless of current page type, providing persistent cross-linking to area pages.</p>
+</div>
+
+<div class="callout">
+    <div class="callout-title">Props Interface</div>
+    <p class="callout-text"><code>assessmentHeading</code>, <code>assessmentItems</code>, <code>guarantees</code>, <code>contact</code>, <code>pricingGuide</code>, <code>relatedServices</code>, <code>pageType</code>. Sticky positioning via <code>top-28</code> (112px) on desktop so the sidebar stays visible alongside the long-form main content column.</p>
+</div>
+
+<!-- ============= SECTION 16: CROSS-LINKING SYSTEM ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 16</div>
+    <div class="chapter-title">Cross-Linking System</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">Internal linking is automated through a small utility (<code class="inline-code">src/lib/cross-links.ts</code>) and rendered via the <code class="inline-code">RelatedLinks</code> component. The function <code class="inline-code">getRelatedLinks({ type, slug })</code> deterministically returns <strong>6 cross-links</strong> for any landing page: 2 other services (excluding the current one if service-typed), 2 sectors, and 2 areas. This ensures every landing page passes link equity to a balanced mix of related pages.</p>
+
+<div class="card">
+<div class="card-title">Cross-Link Surface Area</div>
+<p class="card-text">
+<strong>Below-main RelatedLinks grid</strong> — 3-column responsive grid (6 items) placed before newsletter on all 18 landing pages<br>
+<strong>Sidebar "Related Services" card</strong> — 2–3 links to other services on every landing page<br>
+<strong>Sidebar "Areas We Serve" card</strong> — 6 area links on every landing page (always complete set)<br>
+<strong>Breadcrumbs</strong> — Home › Type › Current on all 18 landing pages<br>
+<strong>Footer 4 columns</strong> — Brand | Sectors (6 links) | Services (6 links) | Contact — appears on every page in the site
+</p>
+</div>
+
+<div class="callout">
+    <div class="callout-title">Internal Link Count</div>
+    <p class="callout-text">Each landing page contains approximately <strong>40+ internal links</strong> (header dropdowns + breadcrumbs + sidebar cards + RelatedLinks grid + footer). With 18 landing pages, this generates <strong>720+ internal links</strong> across the site, ensuring comprehensive crawl coverage and equitable PageRank distribution.</p>
+</div>
+
+<!-- ============= SECTION 17: COMPLIANCE & SECURITY ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 17</div>
+    <div class="chapter-title">Compliance &amp; Security</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>POPIA (Protection of Personal Information Act)</div>
+<ul class="spec-list">
+<li><strong>Cookie consent banner</strong> — <code>src/components/cookie-consent.tsx</code>; blocks non-essential cookies until user accepts</li>
+<li><strong>Privacy policy link</strong> — present in footer; routed to <code>/privacy</code> (planned) or static page</li>
+<li><strong>POPIA consent checkbox</strong> — required on contact form; literal <code>true</code> value; stored on Lead record as <code>popiaConsent</code> + <code>consentTime</code></li>
+<li><strong>"POPIA Compliant" badge</strong> — rendered in footer for user-visible trust signal</li>
+</ul>
+
+<div class="sub-heading"><span class="num">2</span>Security Headers (next.config.ts)</div>
+<div class="code-block"><span class="comment">// Applied to every response via Next.js headers()</span>
+<span class="keyword">strict-transport-security</span>: <span class="string">"max-age=63072000; includeSubDomains; preload"</span>  <span class="comment">// HSTS</span>
+<span class="keyword">x-frame-options</span>: <span class="string">"DENY"</span>                                       <span class="comment">// No iframe embedding</span>
+<span class="keyword">x-content-type-options</span>: <span class="string">"nosniff"</span>                          <span class="comment">// MIME sniffing off</span>
+<span class="keyword">referrer-policy</span>: <span class="string">"origin-when-cross-origin"</span>
+<span class="keyword">x-dns-prefetch-control</span>: <span class="string">"on"</span>
+<span class="keyword">permissions-policy</span>: <span class="string">"camera=(), microphone=(), geolocation=()"</span></div>
+
+<div class="sub-heading"><span class="num">3</span>Data Handling</div>
+<ul class="spec-list">
+<li><strong>Prisma SQLite</strong> — leads and subscribers stored in a local file (<code>/home/z/my-project/db/custom.db</code>); no external DB</li>
+<li><strong>No persistent session storage</strong> — the site is stateless from a user perspective; no NextAuth sessions active</li>
+<li><strong>No third-party analytics</strong> — no GA, no Hotjar, no Facebook Pixel (planned for Phase 4 with consent-gated loading)</li>
+</ul>
+
+<!-- ============= SECTION 18: DEPLOYMENT & INFRASTRUCTURE ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 18</div>
+    <div class="chapter-title">Deployment &amp; Infrastructure</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Attribute</span></th><th><span>Value</span></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Platform</strong></td><td><span>Vercel (Hobby plan, free tier)</span></td></tr>
+<tr><td><strong>Repository</strong></td><td><code>github.com/otsmarketing01-debug/jhb</code> (public)</td></tr>
+<tr><td><strong>Auto-deploy</strong></td><td>Every push to <code>main</code> branch triggers rebuild (~90s)</td></tr>
+<tr><td><strong>Region</strong></td><td><span>iad1 (Washington DC) — single region for Hobby tier</span></td></tr>
+<tr><td><strong>SSL</strong></td><td><span>Let's Encrypt via Vercel (auto-renewing)</span></td></tr>
+<tr><td><strong>Custom domain</strong></td><td><span>jhbcurtaincleaning.co.za (DNS at domains.co.za)</span></td></tr>
+<tr><td><strong>DNS A record</strong></td><td><code>76.76.21.21</code> (Vercel anycast)</td></tr>
+<tr><td><strong>DNS CNAME (www)</strong></td><td><code>cname.vercel-dns.com</code></td></tr>
+<tr><td><strong>vercel.json</strong></td><td><code>framework: nextjs</code>, <code>buildCommand: next build</code></td></tr>
+<tr><td><strong>next.config.ts</strong></td><td><code>output: standalone</code>, AVIF/WebP images, security headers</td></tr>
+<tr><td><strong>Vercel project ID</strong></td><td><code>prj_E0lZ4Z1q9ev1fCgtMJfErqktPRGB</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="body-text">Because all 19 routes are statically generated (only the 3 API endpoints run as serverless functions), the Vercel edge cache serves the entire site globally with near-zero latency. Cold starts on the API endpoints are negligible — the <code class="inline-code">/api/chat</code> route warms within ~200ms on first invocation and stays warm during traffic bursts. The Hobby plan's 100GB bandwidth allowance is more than sufficient for current traffic (estimated &lt;5GB/month).</p>
+
+<!-- ============= SECTION 19: BUILD & DEVELOPMENT COMMANDS ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 19</div>
+    <div class="chapter-title">Build &amp; Development Commands</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th><span>Command</span></th><th><span>Purpose</span></th></tr>
+</thead>
+<tbody>
+<tr><td><code>bun run dev</code></td><td><span>Start dev server on port 3000 (HMR, Fast Refresh)</span></td></tr>
+<tr><td><code>bun run build</code></td><td><span>Production build (SSG all 18 landing pages + sitemap)</span></td></tr>
+<tr><td><code>bun run start</code></td><td><span>Start production server (post-build) on port 3000</span></td></tr>
+<tr><td><code>bun run lint</code></td><td><span>Run ESLint (Next.js default config)</span></td></tr>
+<tr><td><code>bun run db:push</code></td><td><span>Push Prisma schema to SQLite (no migration history)</span></td></tr>
+<tr><td><code>bun run db:generate</code></td><td><span>Generate Prisma client (TypeScript types)</span></td></tr>
+<tr><td><code>bun run db:migrate</code></td><td><span>Run Prisma migrations (creates migration files)</span></td></tr>
+<tr><td><code>bun run db:reset</code></td><td><span>Reset database — drops all data, re-applies schema</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading"><span class="num">1</span>Environment Variables</div>
+<div class="code-block"><span class="comment">// .env (gitignored, create on first setup)</span>
+DATABASE_URL=file:/home/z/my-project/db/custom.db
+
+<span class="comment">// Optional — for AI chatbot (already configured via z-ai-web-dev-sdk)</span>
+<span class="comment">// No additional env vars required — the SDK reads credentials</span>
+<span class="comment">// from the workspace environment automatically.</span></div>
+
+<div class="callout">
+    <div class="callout-title">First-Time Setup Sequence</div>
+    <p class="callout-text"><code>bun install</code> → create <code>.env</code> with <code>DATABASE_URL</code> → <code>bun run db:generate</code> → <code>bun run db:push</code> → <code>bun run dev</code>. Total setup time on a fresh clone: under 90 seconds.</p>
+</div>
+
+<!-- ============= SECTION 20: BRAND ASSETS ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 20</div>
+    <div class="chapter-title">Brand Assets</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<ul class="spec-list">
+<li><strong>Logo (primary)</strong> — <code>/public/brand/bronze-seal.png</code> (1.5 MB). Bronze circular seal with "JHB CURTAIN CLEANING" wordmark. Used as favicon and primary brand mark.</li>
+<li><strong>Logo (alt)</strong> — <code>/public/brand/logo.png</code> (1.5 MB). Alternative layout version for light backgrounds.</li>
+<li><strong>Favicon</strong> — <code>/public/brand/bronze-seal.png</code> configured in <code>layout.tsx</code> via Next.js metadata <code>icons</code> field.</li>
+<li><strong>Social media profile pictures</strong> — <code>/public/downloads/social-profile-pics/</code> contains 12 platform-optimized images plus a ZIP archive for bulk download.</li>
+<li><strong>Branding assets download page</strong> — <code>/public/downloads/branding-assets.html</code> is a static HTML page (outside the Next.js app router) for sharing logos with partners and vendors.</li>
+</ul>
+
+<!-- ============= SECTION 21: KNOWN ISSUES & FUTURE WORK ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 21</div>
+    <div class="chapter-title">Known Issues &amp; Future Work</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">An internal SEO audit scored the site at <strong>47/100</strong> at initial assessment; Phases 1 and 2 (NAP standardization, JSON-LD schemas, cross-linking, sitemap) lifted the score to <strong>65+</strong>. The remaining work is sequenced into Phases 3 and 4 below, alongside known technical debt that should be addressed in parallel.</p>
+
+<div class="sub-heading"><span class="num">1</span>Phase 3 (Pending — Content)</div>
+<ul class="spec-list">
+<li><strong>Blog section</strong> — not yet built; 6 AEO (Answer Engine Optimization) posts planned to target long-tail conversational queries</li>
+<li><strong>Before/after image gallery</strong> — embla-carousel-react is installed and ready; needs visual assets and a gallery component</li>
+<li><strong>Customer review excerpts</strong> — not currently surfaced on landing pages; Google Business Profile API integration planned</li>
+<li><strong>Article schema</strong> — depends on blog launch; schema template already drafted</li>
+</ul>
+
+<div class="sub-heading"><span class="num">2</span>Phase 4 (Pending — Authority)</div>
+<ul class="spec-list">
+<li><strong>Backlink strategy</strong> — not implemented; outreach list of Johannesburg business directories in progress</li>
+<li><strong>Case studies section</strong> — sector-specific deep dives with photo documentation</li>
+<li><strong>E-E-A-T credentials</strong> — Stephen Dunlop's certifications and training not yet displayed; needs an credentials panel in AboutSection</li>
+<li><strong>Video content</strong> — no on-site video; YouTube channel exists but not embedded</li>
+</ul>
+
+<div class="sub-heading"><span class="num">3</span>Known Technical Debt</div>
+<ul class="spec-list">
+<li><code>src/lib/data.ts</code> is legacy — duplicates some content from <code>site-data.ts</code>; should be consolidated and removed</li>
+<li><code>typescript.ignoreBuildErrors: true</code> in <code>next.config.ts</code> — masks underlying type errors; flip to <code>false</code> and fix surfaced errors</li>
+<li><code>reactStrictMode: false</code> — disabled; should be re-enabled to catch side-effect bugs in dev</li>
+<li><strong>No tests</strong> — no test framework configured (Vitest + Playwright recommended for Phase 3)</li>
+</ul>
+
+<!-- ============= SECTION 22: HANDOFF CHECKLIST ============= -->
+<div class="chapter-header">
+    <div class="chapter-tag">Section 22</div>
+    <div class="chapter-title">Handoff Checklist for New AI Agent</div>
+    <div class="chapter-divider"></div>
+</div>
+
+<p class="body-text">Complete the following checklist in order to bring the new agent's workspace to a known-good state. Each item is verifiable — if any step fails, stop and consult the relevant section of this document before proceeding.</p>
+
+<ul class="checklist">
+<li>Clone the repository: <code>git clone https://github.com/otsmarketing01-debug/jhb.git</code></li>
+<li>Install dependencies: <code>bun install</code> (verify Bun is installed first)</li>
+<li>Setup environment: create <code>.env</code> with <code>DATABASE_URL=file:./db/custom.db</code></li>
+<li>Push Prisma schema: <code>bun run db:push</code> (creates the SQLite file)</li>
+<li>Start dev server: <code>bun run dev</code> — verify site loads at <code>http://localhost:3000</code></li>
+<li>Verify lint passes: <code>bun run lint</code> — should return zero errors (warnings acceptable)</li>
+<li>Check the live site: <code>https://curtaincleaning.space-z.ai/</code> — compare to local for parity</li>
+<li>Read <code>src/lib/site-data.ts</code> (1,175 lines) — this is the single source of truth for all content</li>
+<li>Read <code>src/app/layout.tsx</code> — understand the JSON-LD schema injection (LocalBusiness + Organization)</li>
+<li>Read <code>src/app/page.tsx</code> — understand the homepage composition (10 section components)</li>
+<li>Read one landing page client — start with <code>service-landing-client.tsx</code> (most representative)</li>
+<li>Check all API routes in <code>src/app/api/</code> — chat, contact, newsletter, plus health check</li>
+<li>Review Prisma schema in <code>prisma/schema.prisma</code> — Partner, Lead, Subscriber models + LeadStatus enum</li>
+<li>Test contact form submission — submit a test lead, verify it appears in the SQLite database</li>
+<li>Test AI chatbot — ask a pricing question, verify the system prompt produces accurate responses</li>
+<li>Verify sitemap at <code>/sitemap.xml</code> — should contain all 19 URLs</li>
+<li>Check SEO audit report — <code>seo-audit-report.pdf</code> (in workspace root) for current score baseline</li>
+</ul>
+
+</div>
+
+<!-- ============= ENDING PAGE ============= -->
+<div class="ending">
+    <div class="ending-top">
+        <div class="ending-monogram">JC</div>
+        <div class="ending-tag">End of Document</div>
+    </div>
+
+    <div class="ending-center">
+        <div class="ending-big"><div>Built with precision.</div><div>Powered by AI.</div></div>
+        <div class="ending-divider"></div>
+        <div class="ending-sub">Every route, every component, every byte of structured data — engineered to hand off cleanly to the next agent in the chain.</div>
+    </div>
+
+    <div class="ending-bottom">
+        <div class="ending-project">JHB Curtain Cleaning</div>
+        <div class="ending-meta">
+            Handoff <span>v2.0</span> · Commit <span>2808d8b</span><br>
+            July <span>2026</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
