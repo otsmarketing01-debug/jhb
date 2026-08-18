@@ -573,3 +573,81 @@ Stage Summary:
 - GitHub repo: github.com/otsmarketing01-debug/jhb (commit 28396f9)
 - Current production commit: 2808d8b → 28396f9
 - All 19 routes + sitemap + downloads all verified working
+---
+Task ID: MISSING-PAGES
+Agent: Subagent (general-purpose)
+Task: Create 7 missing pages linked in header/footer (About, Gallery, Blog listing, Blog post SSG, Guides, Privacy Policy, Terms of Service)
+
+Work Log:
+- Audited existing codebase: read site-data.ts (FOUNDER, SITE_CONFIG exports), header.tsx, footer.tsx, whatsapp-button.tsx, cookie-consent.tsx, breadcrumbs.tsx, related-links.tsx, services/[slug]/page.tsx (SSG pattern), sectors/[slug]/page.tsx, areas/[slug]/page.tsx, landing/* client components, globals.css (brand tokens), tailwind.config.ts, eslint.config.mjs, sitemap.ts.
+- Created 8 new files:
+  1. src/lib/blog-data.ts (BlogPost interface + 6 posts with 300–500+ words of real content each, plus helper fns: getAllBlogPosts, getBlogPostBySlug, getRelatedPosts, getAllBlogSlugs).
+  2. src/app/about/page.tsx — Server Component with founder story (Stephen Dunlop), company story (founded 2009), 4-value grid, 4-stat grid, 4 credential cards, contact CTA. Includes AboutPage + BreadcrumbList JSON-LD. Reuses Header, Footer, WhatsAppButton, CookieConsent, Breadcrumbs.
+  3. src/app/gallery/page.tsx — 12-project gallery grid with gradient placeholders, curtain-pattern overlays, decorative curtain SVG, category & duration badges. Categories: Residential, Hotels, Commercial, Specialist Fabric Care. CollectionPage + BreadcrumbList JSON-LD.
+  4. src/app/blog/page.tsx — Blog listing with 6 cards, hero gradient header per card, category badges, author/date/read-time meta, excerpt, "Read more" link. Blog + BreadcrumbList JSON-LD.
+  5. src/app/blog/[slug]/page.tsx — SSG via generateStaticParams + generateMetadata per post. Renders full post content (headings/paragraphs/lists), Article BlogPosting JSON-LD, author box, "Back to all articles" link, related posts section (3 cards), CTA. Author: Stephen Dunlop.
+  6. src/app/guides/page.tsx — 6 guide cards with hero gradient headers, icons, category & read-time badges, 4 topic chips per card. CollectionPage + BreadcrumbList JSON-LD. Plus "browse blog" CTA strip.
+  7. src/app/privacy-policy/page.tsx — POPIA-compliant 11-section policy (effective June 2026) with sticky table of contents, numbered cards, contact box with Information Regulator details. Covers all 11 required sections.
+  8. src/app/terms-of-service/page.tsx — 11-section Terms (effective June 2026) with sticky table of contents, numbered cards, Johannesburg jurisdiction, South African governing law, contact box.
+
+Design system applied:
+- Brand tokens: brand-emerald (#064e3b), brand-bronze (#a87d43), brand-surface-ivory (#f9f9f6).
+- gradient-emerald utility class for hero backgrounds.
+- hero-pattern overlay, glass effect, brand-bronze-highlight accents.
+- shadcn/ui Card, Badge, Button components for consistency with existing pages.
+- Lucide icons throughout (ArrowRight, Phone, MessageCircle, Shield, Flame, etc.).
+- Reused Breadcrumbs component on every new page for nav consistency.
+- All pages use semantic HTML: <main>, <section>, <article>, <h1>/<h2>/<h3>, <time>, <nav>, <blockquote>, <ol>/<ul>.
+- Canonical URLs in metadata for every page.
+- All pages Server Components (no 'use client') — only Header/Footer/WhatsApp/CookieConsent components are client.
+
+SEO / AEO:
+- All blog posts include Article JSON-LD with author, publisher, datePublished, keywords.
+- Blog listing includes Blog JSON-LD enumerating all 6 posts.
+- Gallery includes CollectionPage JSON-LD.
+- About includes AboutPage + LocalBusiness JSON-LD.
+- Privacy Policy & Terms include BreadcrumbList JSON-LD.
+- Each page has unique <title>, meta description, OpenGraph tags, canonical URL.
+- 6 blog posts cover the 6 AEO topics from the audit (how-to clean curtains / shrinkage science / on-site vs off-site / cleaning frequency / SANS fire compliance / dust mites).
+
+Verification:
+- bunx eslint (new files only): exit=0, 0 errors, 0 warnings.
+- bunx tsc --noEmit: 0 errors in new files (pre-existing TS errors in components/sections unchanged).
+- bun run dev: server started in 962ms with Turbopack.
+- HTTP 200 verification:
+  * /about:            HTTP 200 (247,554 bytes)
+  * /gallery:          HTTP 200 (319,391 bytes)
+  * /blog:             HTTP 200 (248,071 bytes)
+  * /blog/how-to-clean-curtains-without-taking-them-down: HTTP 200 (214,642 bytes)
+  * /blog/can-curtains-shrink-when-washed: HTTP 200 (218,116 bytes)
+  * /blog/on-site-vs-off-site-curtain-cleaning-johannesburg: HTTP 200
+  * /blog/how-often-should-you-clean-your-curtains: HTTP 200
+  * /blog/fire-proofing-curtains-for-south-african-hotels-sans-compliance: HTTP 200
+  * /blog/dust-mites-in-curtains-health-risks-and-professional-removal: HTTP 200
+  * /guides:           HTTP 200 (286,311 bytes)
+  * /privacy-policy:   HTTP 200 (268,758 bytes)
+  * /terms-of-service: HTTP 200 (254,389 bytes)
+- Regression check (existing pages still work):
+  * / (home): HTTP 200
+  * /services/curtain-blind-cleaning: HTTP 200
+  * /sitemap.xml: HTTP 200
+- Content spot-checks confirmed: correct <title> tags, BlogPosting + BreadcrumbList JSON-LD emitted, POPIA text present, gallery project titles present, guide titles present.
+
+Stage Summary:
+- All 7 missing pages created and verified working (plus 6 SSG blog post detail pages, plus blog-data.ts content file = 8 files total).
+- Every page imports Header, Footer, WhatsAppButton, CookieConsent. Breadcrumbs added on all.
+- Every page is a Server Component. Every page has canonical URL + OpenGraph metadata + JSON-LD schema.
+- No 'use client' directives introduced. No new dependencies added.
+- Pre-existing lint errors in generate-accounts.js and TS variant-typing issues in existing framer-motion components are unchanged (out of scope).
+- All 13 routes (7 new + 6 SSG blog detail) return HTTP 200 with substantial content for SEO/AEO.
+- Site is ready for production build & deployment.
+
+Files Created:
+  • src/lib/blog-data.ts (BlogPost interface + 6 posts + helpers, 359 lines)
+  • src/app/about/page.tsx (Server Component, 472 lines)
+  • src/app/gallery/page.tsx (12-project gallery, 415 lines)
+  • src/app/blog/page.tsx (6-card blog listing, 268 lines)
+  • src/app/blog/[slug]/page.tsx (SSG with JSON-LD, 376 lines)
+  • src/app/guides/page.tsx (6 guide cards, 318 lines)
+  • src/app/privacy-policy/page.tsx (11-section POPIA policy, 358 lines)
+  • src/app/terms-of-service/page.tsx (11-section Terms, 358 lines)
